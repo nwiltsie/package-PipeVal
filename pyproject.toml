@@ -1,7 +1,60 @@
-[build-system]
-requires = [
-    "setuptools>=42",
-    "wheel"
+[project]
+name = "pipeval"
+description = 'Python CLI tool to validate different file types and their contents in Nextflow scripts/pipelines'
+readme = "README.md"
+dynamic = ["version"]
+
+keywords = ["nextflow", "slurm"]
+
+requires-python = ">=3.6"
+
+dependencies = [
+    "pysam==0.19.0",
+    "python-magic==0.4.27"
 ]
 
-build-backend = "setuptools.build_meta"
+maintainers = [
+    {name = "Yash Patel", email = "YashPatel@mednet.ucla.edu"},
+    {name = "Nicholas Wiltsie", email = "nwiltsie@mednet.ucla.edu"}
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v2.0 (GPL-2.0)",
+    "Operating System :: OS Independent"
+]
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+pipeval = "pipeval:__main__.main"
+
+[project.urls]
+Repository = "https://github.com/uclahs-cds/package-PipeVal"
+Issues = "https://github.com/uclahs-cds/package-PipeVal/issues"
+Issues = "https://github.com/uclahs-cds/package-PipeVal/blob/main/CHANGELOG.md"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "pipeval/_version.py"
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+# Hooray, the cluster uses python3.6 which has reached end-of-life
+min_version = 4.0.0a9
+env_list =
+    py3.6
+    py3.12
+
+[testenv]
+deps = pytest
+commands = pytest tests --doctest-modules --junitxml=junit/test-results.xml
+
+[testenv:py3.6]
+requires = virtualenv<20.22.0
+"""
