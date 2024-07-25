@@ -18,12 +18,6 @@ maintainers = [
     {name = "Nicholas Wiltsie", email = "nwiltsie@mednet.ucla.edu"}
 ]
 
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: GNU General Public License v2.0 (GPL-2.0)",
-    "Operating System :: OS Independent"
-]
-
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
@@ -34,7 +28,7 @@ pipeval = "pipeval:__main__.main"
 [project.urls]
 Repository = "https://github.com/uclahs-cds/package-PipeVal"
 Issues = "https://github.com/uclahs-cds/package-PipeVal/issues"
-Issues = "https://github.com/uclahs-cds/package-PipeVal/blob/main/CHANGELOG.md"
+Changelog = "https://github.com/uclahs-cds/package-PipeVal/blob/main/CHANGELOG.md"
 
 [tool.hatch.version]
 source = "vcs"
