@@ -7,7 +7,7 @@ import warnings
 import zlib
 import gzip
 import bz2
-import mock
+import unittest.mock as mock
 import pytest
 
 from pipeval.validate.files import (

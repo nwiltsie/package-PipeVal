@@ -2,7 +2,7 @@
 # pylint: disable=C0114
 from unittest.mock import mock_open
 import hashlib
-import mock
+import unittest.mock as mock
 import pytest
 
 from pipeval.generate_checksum.checksum import (

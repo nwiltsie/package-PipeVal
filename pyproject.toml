@@ -9,8 +9,9 @@ keywords = ["nextflow", "slurm"]
 requires-python = ">=3.6"
 
 dependencies = [
-    "pysam==0.19.0",
-    "python-magic==0.4.27"
+    "pysam==0.22.1",
+    "python-magic==0.4.27",
+    "dataclasses==0.8; python_version < '3.7'"
 ]
 
 maintainers = [
@@ -47,7 +48,7 @@ env_list =
 
 [testenv]
 deps = pytest
-commands = pytest tests --doctest-modules --junitxml=junit/test-results.xml
+commands = pytest test --doctest-modules --junitxml=junit/test-results.xml
 
 [testenv:py3.6]
 requires = virtualenv<20.22.0
