@@ -1,11 +1,19 @@
 ''' File checking functions '''
 from pathlib import Path
 from typing import Union
+import sys
 import warnings
 import zlib
 import gzip
 import bz2
 import magic
+
+
+if sys.version_info[1] >= 8:
+    from gzip import BadGzipFile
+else:
+    BadGzipFile = OSError
+
 
 def _identify_compression(path:Path):
     ''' Identify compression type and returns appropriate file handler '''
@@ -27,7 +35,7 @@ def _check_compression_integrity(path:Path, handler:Union[gzip.open,bz2.open]):
         try:
             while file_reader.read(read_chunk_size) != b'':
                 pass
-        except gzip.BadGzipFile as bad_gzip:
+        except BadGzipFile as bad_gzip:
             integrity_error = f'Invalid Gzip file: {bad_gzip}'
         except EOFError as eof_error:
             integrity_error = f'Truncated or corrupted file: {eof_error}'

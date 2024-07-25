@@ -3,6 +3,7 @@
 from pathlib import Path
 from argparse import Namespace, ArgumentTypeError
 from unittest.mock import Mock, mock_open, MagicMock
+import sys
 import warnings
 import zlib
 import gzip
@@ -44,6 +45,13 @@ from pipeval.validate.validate import (
 )
 from pipeval.validate.__main__ import positive_integer
 from pipeval.validate.validate_types import ValidateArgs
+
+
+if sys.version_info[1] >= 8:
+    from gzip import BadGzipFile
+else:
+    BadGzipFile = OSError
+
 
 def test__positive_integer__returns_correct_integer():
     expected_number = 2
@@ -609,7 +617,7 @@ def test___check_compression_integrity__passes_valid_file(test_handler):
 @pytest.mark.parametrize(
     'test_handler, test_exception',
     [
-        ("gzip.open", gzip.BadGzipFile),
+        ("gzip.open", BadGzipFile),
         ("gzip.open", EOFError),
         ("gzip.open", zlib.error),
         ("bz2.open", EOFError),

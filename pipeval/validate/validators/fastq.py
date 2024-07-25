@@ -3,10 +3,11 @@
 from pathlib import Path
 from typing import Dict, Union, ClassVar
 from dataclasses import dataclass
-import re
-import gzip
 import bz2
+import gzip
 import magic
+import re
+import typing
 
 from pipeval.validate.validate_types import ValidateArgs
 
@@ -25,9 +26,9 @@ class FASTQ_RECORD_VALIDATOR:
     ''' FASTQ Record validator class '''
     minimum_quality_ordinal: ClassVar[int] = 33
     maximum_quality_ordinal: ClassVar[int] = 126
-    record_identifier_format: ClassVar[re.Pattern] = re.compile('^@')
-    extra_field_format: ClassVar[re.Pattern] = re.compile(r'^\+')
-    sequence_format: ClassVar[re.Pattern] = re.compile('^[ACTGNactgn]+$')
+    record_identifier_format: ClassVar[typing.re.Pattern] = re.compile('^@')
+    extra_field_format: ClassVar[typing.re.Pattern] = re.compile(r'^\+')
+    sequence_format: ClassVar[typing.re.Pattern] = re.compile('^[ACTGNactgn]+$')
 
     @staticmethod
     def validate_record(record:FASTQ_RECORD):
